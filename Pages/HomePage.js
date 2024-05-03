@@ -3,7 +3,7 @@ import { View, Image, ScrollView, Button, TouchableOpacity, StyleSheet } from 'r
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const API_ENDPOINT = 'https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&per_page=20&page=1&api_key=6f102c62f41998d151e5a1b48713cf13&format=json&nojsoncallback=1&extras=url_s';
+const API = 'https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&per_page=20&page=1&api_key=6f102c62f41998d151e5a1b48713cf13&format=json&nojsoncallback=1&extras=url_s';
 
 export default function HomePage() {
     const navigation = useNavigation();
@@ -15,8 +15,8 @@ export default function HomePage() {
 
     const fetchImages = async () => {
         try {
-            const response = await fetch(API_ENDPOINT);
-            const data = await response.json();
+            const res = await fetch(API);
+            const data = await res.json();
             const fetchedImages = data.photos?.photo;
             if (fetchedImages && fetchedImages.length > 0) {
                 setImages(fetchedImages);
